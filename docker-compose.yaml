@@ -1,0 +1,52 @@
+version: "3.9"
+networks:
+    cfnet:
+services:
+    postgres:
+        image: postgres:11-alpine
+        container_name: postgres-c
+        networks:
+            - cfnet
+        ports:
+            - "5432:5432"
+        working_dir: /app
+        volumes:
+            - ./data/postgresql:/var/lib/postgresql/data
+        restart: always
+        environment:
+            POSTGRES_DB: cafe_db
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: root
+            LC_COLLATE: "fa_IR.UTF-8"
+            LC_CTYPE: "fa_IR.UTF-8"
+    # app:
+    #     build:
+    #         context: ./app
+    #         dockerfile: Dockerfile
+    #     container_name: app-c
+    #     restart: unless-stopped
+    #     networks:
+    #         - cfnet
+    #     depends_on:
+    #         - postgres
+    #     environment:
+    #         - VERSION=0.0.1-pre-alpha
+    #         - SECRET=bnb1sayegcphj8q2tdhutgpy4p452h9sxkrdtd98tk
+    #         - JWT_SECRET=bnb1xvtzgcphj8q2thhutgpy4p852h9sxcrdtn98tf
+    #         - DATABASE=cafe_db
+    nginx:
+        build:
+            context: ./nginx
+            dockerfile: Dockerfile
+        container_name: nginx-c
+        networks:
+            - cfnet
+        restart: unless-stopped
+        # depends_on:
+        #     - app
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx/conf:/etc/nginx/conf.d
+            - ./nginx/logs:/var/logs/nginx
+        command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
