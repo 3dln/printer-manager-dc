@@ -20,6 +20,18 @@ services:
             LANG: "fa_IR.UTF-8"
             LC_COLLATE: "fa_IR.UTF-8"
             LC_CTYPE: "fa_IR.UTF-8"
+    # pgadmin:
+    #     image: dpage/pgadmin4
+    #     depends_on:
+    #         - postgres
+    #     ports:
+    #         - "5555:80"
+    #     networks:
+    #         - cfnet
+    #     environment:
+    #         PGADMIN_DEFAULT_EMAIL: ashcan@3dln.com
+    #         PGADMIN_DEFAULT_PASSWORD: Shabnashin2@
+    #     restart: unless-stopped
     app:
         build:
             context: ./app
@@ -36,7 +48,7 @@ services:
             - JWT_SECRET=bnb1xvtzgcphj8q2thhutgpy4p852h9sxcrdtn98tf
             - DATABASE=cafe_db
         ports:
-            - 5000:5000
+            - "5000:5000"
     # nginx:
     #     build:
     #         context: ./nginx
