@@ -12,10 +12,10 @@
 ### production
 
 - Install docker for windows
-- clone this repo
+- clone the main repo (not any submodules)
 - cd into cloned directory
-- git submodule update --init --recursive
-- docker-compose up -d
+- git submodule update --init --recursive (this will add all submodules)
+- docker-compose up -d (where docker-compose.yml file exists)
 
 ## TODO
 
@@ -24,28 +24,45 @@
 - [x] Setup docker and compose for orchestration
 - [x] All interfaces
 - [x] User model
+- [x] Interactive header based on received data
 - [ ] All routes
   - [x] Login
-  - [ ] get data
+  - [x] get data
+  - [ ] Add to basket
   - [ ] submit
   - [ ] autocomplete
-    - [ ] prevent entering farsi chars
 - [x] Error management
 - [ ] Logger
   - [x] api logger (morgan)
   - [ ] main logger (winston)
 - [x] middlewares
 - [x] validation
-- [ ] Category model
-- [ ] product model
-- [ ] Cart model
-- [ ] Order model
+- [x] Category model
+- [x] product model
+- [x] Cart model
+- [x] Order model
+- [ ] cart page
+  - [ ] cart functionalities
+    - [ ] remove item
+    - [ ] total price
+    - [ ] delete cart
+    - [ ] send cart
+  - [ ] autocomplete box
+    - [ ] prevent entering farsi chars
 - [x] Login
-- [ ] Get Printers
-- [ ] Define Printers
-- [x] Next.js
-- [x] Fonts
+- [x] User signout
+- [x] Get Printers
+- [x] Define Printers
+- [ ] Next.js
+  - [ ] Custom server
+  - [ ] pkg
+  - [ ] env
+- [ ] Fonts
+  - [x] farsi fonts
+  - [ ] farsi digits
 - [x] RTL
+- [ ] Show parent title in product pages
+- [ ] optimize and cache product images after first load to speed up
 - [ ] Single source of truth architecture for offline mode
   - [ ] Save received info from server into client db
   - [ ] Client db is our single source of truth

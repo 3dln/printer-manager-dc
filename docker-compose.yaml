@@ -20,18 +20,6 @@ services:
             LANG: "fa_IR.UTF-8"
             LC_COLLATE: "fa_IR.UTF-8"
             LC_CTYPE: "fa_IR.UTF-8"
-    # pgadmin:
-    #     image: dpage/pgadmin4
-    #     depends_on:
-    #         - postgres
-    #     ports:
-    #         - "5555:80"
-    #     networks:
-    #         - cfnet
-    #     environment:
-    #         PGADMIN_DEFAULT_EMAIL: ashcan@3dln.com
-    #         PGADMIN_DEFAULT_PASSWORD: Shabnashin2@
-    #     restart: unless-stopped
     app:
         build:
             context: ./app
@@ -47,21 +35,17 @@ services:
             - SECRET=bnb1sayegcphj8q2tdhutgpy4p452h9sxkrdtd98tk
             - JWT_SECRET=bnb1xvtzgcphj8q2thhutgpy4p852h9sxcrdtn98tf
             - DATABASE=cafe_db
-        ports:
-            - "5000:5000"
-    # nginx:
-    #     build:
-    #         context: ./nginx
-    #         dockerfile: Dockerfile
-    #     container_name: nginx-c
-    #     networks:
-    #         - cfnet
-    #     restart: unless-stopped
-    #     # depends_on:
-    #     #     - app
-    #     ports:
-    #         - "80:80"
-    #     volumes:
-    #         - ./nginx/conf:/etc/nginx/conf.d
-    #         - ./nginx/logs:/var/logs/nginx
-    #     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    client:
+        build:
+            context: ./client
+            dockerfile: Dockerfile
+        container_name: client-c
+        restart: unless-stopped
+        networks:
+            - cfnet
+        depends_on:
+            - app
+        environment:
+            - VERSION=0.0.1-pre-alpha
+            - SECRET=bnb1sayegcphj8q2tdhutgpy4p452h9sxkrdtd98tk
+            - JWT_SECRET=bnb1xvtzgcphj8q2thhutgpy4p852h9sxcrdtn98tf
