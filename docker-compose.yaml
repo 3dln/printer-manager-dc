@@ -35,6 +35,8 @@ services:
             - SECRET=bnb1sayegcphj8q2tdhutgpy4p452h9sxkrdtd98tk
             - JWT_SECRET=bnb1xvtzgcphj8q2thhutgpy4p852h9sxcrdtn98tf
             - DATABASE=cafe_db
+        ports:
+            - 5000:5000
     client:
         build:
             context: ./client
@@ -49,3 +51,5 @@ services:
             - VERSION=0.0.1-pre-alpha
             - SECRET=bnb1sayegcphj8q2tdhutgpy4p452h9sxkrdtd98tk
             - JWT_SECRET=bnb1xvtzgcphj8q2thhutgpy4p852h9sxcrdtn98tf
+        ports:
+            - 3000:3000
